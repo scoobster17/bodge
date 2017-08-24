@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Job Tracker : Bodge Job</title>
+	<style type="text/css">
+		/* reset */
+		/* http://meyerweb.com/eric/tools/css/reset/
+		   v2.0 | 20110126
+		   License: none (public domain)
+		*/
+
+		html, body, div, span, applet, object, iframe,
+		h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+		a, abbr, acronym, address, big, cite, code,
+		del, dfn, em, img, ins, kbd, q, s, samp,
+		small, strike, strong, sub, sup, tt, var,
+		b, u, i, center,
+		dl, dt, dd, ol, ul, li,
+		fieldset, form, label, legend,
+		table, caption, tbody, tfoot, thead, tr, th, td,
+		article, aside, canvas, details, embed,
+		figure, figcaption, footer, header, hgroup,
+		menu, nav, output, ruby, section, summary,
+		time, mark, audio, video {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font-size: 100%;
+			font: inherit;
+			vertical-align: baseline;
+		}
+		/* HTML5 display-role reset for older browsers */
+		article, aside, details, figcaption, figure,
+		footer, header, hgroup, menu, nav, section {
+			display: block;
+		}
+		body {
+			line-height: 1;
+		}
+		ol, ul {
+			list-style: none;
+		}
+		blockquote, q {
+			quotes: none;
+		}
+		blockquote:before, blockquote:after,
+		q:before, q:after {
+			content: '';
+			content: none;
+		}
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+		}
+
+		/* desktop */
+		.hide-desktop {
+			left: -999em;
+			position: absolute;
+			top: -999em;
+		}
+		ol {
+			overflow:hidden;
+		}
+		ol li {
+			float:left;
+		}
+		dl {
+			overflow: hidden;
+		}
+		dd {
+			float:left;
+		}
+	</style>
+</head>
+<body>
+	<header>Bodge Job</header>
+
+	<main>
+		<h1>Bodge Job - Job Tracker</h1>
+		<p>
+			Job tracker for when you're dealing with applying for jobs, talking
+			to multiple agents, and trying to keep track of everything.
+		</p>
+		<ul>
+			<li>
+				<button class="add-job">Add Job</button>
+			</li>
+		</ul>
+		<h2>Jobs</h2>
+		<ol aria-hidden></ol>
+		<ul id="job-list"></ul>
+		<ul>
+			<li>
+				<button class="add-job">Add Job</button>
+			</li>
+		</ul>
+	</main>
+	<footer>
+		&copy; Phil Gibbins
+	</footer>
+	<script type="text/template" id="template">
+		<li>
+			<dl>
+				<dt class="hide-desktop">Job Title</dt>
+					<dd>
+						<input type="text" placeholder="CEO" />
+					</dd>
+				<dt class="hide-desktop">Working For</dt>
+					<dd>
+						<input type="text" placeholder="Company Name" />
+					</dd>
+				<dt class="hide-desktop">Salary</dt>
+					<dd>
+						<select>
+							<option>GBP - £</option>
+							<option>USD - $</option>
+						</select>
+						<input type="text" placeholder="1,000,000.00">
+					</dd>
+				<dt class="hide-desktop">Location</dt>
+					<dd>
+						<input type="text" placeholder="Google">
+					</dd>
+				<dt class="hide-desktop">Skills</dt>
+					<dd>
+						<textarea placeholder="Skill 1, skill 2"></textarea>
+					</dd>
+				<dt class="hide-desktop">Benefits</dt>
+					<dd>
+						<textarea placeholder="100% Bonus, 26 weeks annual leave"></textarea>
+					</dd>
+				<dt class="hide-desktop">Agent</dt>
+					<dd>
+						<input type="text" placeholder="Joe Bloggs">
+					</dd>
+				<dt class="hide-desktop">Agent&#39;s Company</dt>
+					<dd>
+						<input type="text" placeholder="Nando's Recruitment">
+					</dd>
+				<dt class="hide-desktop">Method of Contact</dt>
+					<dd>
+						<input type="text" placeholder="LinkedIn">
+					</dd>
+				<dt class="hide-desktop">Status</dt>
+					<dd>
+						<select>
+							 <option>Seen</option>
+							 <option>In Discussion</option>
+							 <option>Interviewing</option>
+							 <option>Applied</option>
+							 <option>Rejected</option>
+							 <option>Accepted</option>
+						</select>
+					</dd>
+				<dt class="hide-desktop">Notes</dt>
+					<dd>
+						<textarea>Not as good as job for ______</textarea>
+					</dd>
+			</dl>
+		</li>
+	</script>
+	<script type="text/javascript">
+		window.addEventListener('load', function() {
+			var template = document.getElementById('template');
+			var templateHTML = template.innerHTML;
+			var jobList = document.getElementById('job-list');
+			var addJobButtons = document.querySelectorAll('.add-job');
+
+			// TODO: mobile only
+			var tempElem = document.createElement('div');
+			tempElem.innerHTML = template.innerHTML;
+			var headers = tempElem.querySelectorAll('dt');
+			var fauxHeader = document.getElementsByTagName('ol')[0];
+			headers.forEach(function(header) {
+				console.log('<li>' + header.innerHTML + '</li>');
+				fauxHeader.insertAdjacentHTML('beforeend', '<li>' + header.innerHTML + '</li>');
+			});
+
+			addJobButtons.forEach(function(button) {
+				button.addEventListener('click', function() {
+					jobList.insertAdjacentHTML('beforeend', templateHTML);
+				});
+			});
+		});
+	</script>
+</body>
+</html>
